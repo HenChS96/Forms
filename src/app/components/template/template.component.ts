@@ -49,7 +49,7 @@ export class TemplateComponent implements OnInit {
 
   save( forma:NgForm ){
     console.log('form posted');
-    console.log('ngform:' + forma);
+    console.log( forma);
     console.log('value: ', forma.value);
   }
 
