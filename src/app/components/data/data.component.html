@@ -1,134 +1,68 @@
 <h4>Formularios <small>Data</small></h4>
 <hr>
-<form (ngSubmit)="save(forma);" #forma="ngForm" novalidate="">
+<form [formGroup]="forma" (ngSubmit)="saveChanges()" novalidate="novalidate">
 
   <div>
 
+    <div formGroupName="fullName">
+
     <div class="form-group row">
-      <label class="col-2 col-form-label">Nombre</label>
+      <label class="col-2 col-form-label">Name:</label>
       <div class="col-8">
 
         <input class="form-control"
                type="text"
-               placeholder="Nombre"
-               [(ngModel)]="user.name" name="Name" 
-               minlength="4" required #name="ngModel" >
+               placeholder="Name"
+               formControlName="name">
 
-              <div *ngIf="name.errors?.required" class="invalid">
-                <b>Este campo es requerido</b>
-              </div>
-              <div *ngIf="name.errors?.minlength" class="invalid">
-                <b>Este campo requiere al menos {{ name.errors.minlength.requiredLength }} caracteres</b>
-              </div>
+        <div *ngIf="forma.get('fullName.name').errors?.required" class="invalid">
+          The name is neccesary
+        </div>
+        <div *ngIf="forma.get('fullName.name').errors?.minlength" class="invalid">
+          The name requires at least 3 characters
+        </div> 
 
       </div>
-
-     
-
     </div>
 
     <div class="form-group row">
-      <label class="col-2 col-form-label">Apellido</label>
+      <label class="col-2 col-form-label">Last Name</label>
       <div class="col-8">
 
         <input class="form-control"
                type="text"
-               placeholder="Apellido"
-               [(ngModel)]="user.lastName" name="lastName"
-               minlength="5" required #Lname="ngModel">
-        
-        <div *ngIf="Lname.errors?.required" class="invalid">
-            <b>Este campo es requerido</b>
-        </div>
-        <div *ngIf="Lname.errors?.minlength" class="invalid">
-            <b>Este campo requiere al menos {{ Lname.errors.minlength.requiredLength }} caracteres </b>
-        </div>
+               placeholder="Last Name"
+               formControlName="lastName">
 
       </div>
     </div>
 
   </div>
 
+    
+
   <div class="form-group row">
-    <label class="col-2 col-form-label">Correo</label>
+    <label class="col-2 col-form-label">Email</label>
     <div class="col-md-8">
 
       <input class="form-control"
              type="email"
-             placeholder="Correo electrónico"
-             [(ngModel)]="user.email" name="email"
-             minlength="5" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
-      
-      <div *ngIf="email.errors?.required" class="invalid">
-             <b> Este campo es requerido </b>
-      </div>
-      <div *ngIf="email.errors?.pattern" class="invalid">
-            <b> El campo no tiene el formato correcto de correo </b> 
-      </div>
+             placeholder="Email"
+             formControlName="email">
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col-2 col-form-label">Pais</label>
-    <div class="col-md-8">
-        <select class="form-control" name="country" [(ngModel)]="user.country">
-          <option value="">Select a Country</option>
-          <option *ngFor="let country of countries" [value]="country.code" > {{country.country}} </option>
-        </select>
-      </div>
-      </div>
-
-     <div class="form-group row">
-          <label class="col-2 col-form-label">Sexo</label>
-          <div class="col-md-8">
-                  <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="sexMale" name="sex" class="custom-control-input" value="Male" [(ngModel)]="user.sex">
-                      <label class="custom-control-label" for="sexMale">Male</label>
-                    </div>
-                    <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="SexFemale" name="sex" class="custom-control-input" value="Female" [(ngModel)]="user.sex">
-                      <label class="custom-control-label" for="SexFemale">Female</label>
-                    </div>
-
-      </div>
-      </div> 
-
-     <!-- <div class="form-group row">
-          <label *ngFor="let s of sexs" class="col-2 col-form-label">Sexo</label>
-          <div class="col-md-8">
-                  <div class="custom-control custom-radio custom-control-inline">
-                      <input type="radio" id="sexMale" name="sex" class="custom-control-input" [value]="s" [(ngModel)]="user.sex">
-                      <label class="custom-control-label" for="sexMale">{{s}}</label>
-                    </div>
-        </div>
-        </div>
-        this is to make it with for-->
-
-        <div class="form-group row">
-            <label class="col-2 col-form-label">Acepta</label>
-            <div class="col-md-8">
-
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" [(ngModel)]="user.accept" name="accept" required>
-                    <label class="custom-control-label" for="customCheck1">Acepta terminos y condiciones?</label>
-                  </div>
-
-
-        </div>
-        </div>
-
+ 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>
     <div class="input-group col-md-8">
-      <button type="submit" class="btn btn-outline-primary" [disabled]="!forma.valid">
-        Guardar
+      <button type="submit" class="btn btn-outline-primary">
+        Save
       </button>
     </div>
   </div>
+</div>
+
+{{forma.valid}}
 
 </form>
-
-
-<pre>
-  {{ user | json }}
-</pre>
