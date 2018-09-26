@@ -52,7 +52,18 @@ export class DataComponent implements OnInit {
     this.forma.controls['password2'].setValidators([
       Validators.required,
       this.passVal.bind(this.forma)
-    ])
+    ]);
+
+
+  /*  this.forma.valueChanges.subscribe( data=> {
+      console.log(data);
+    }); --> this one is to detect any changes on the form */ 
+
+
+    // this one take one control and value the change
+    this.forma.controls['email'].valueChanges.subscribe( data=> {
+      console.log(data);
+    });
 
   }
 
